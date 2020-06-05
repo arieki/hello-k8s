@@ -4,5 +4,24 @@ server:
 spring:
   application:
     name: hello-k8s
+  datasource:
+    jdbc-url: jdbc:postgresql://${PG_SERVER}/first-db
+    username: postgres
+    password: password
+    hikari:
+      maximum-pool-size: 2
+      connection-test-query: SELECT 1
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
 
-
+eureka:
+  instance:
+    lease-expiration-duration-in-seconds: 2
+    lease-renewal-interval-in-seconds: 2
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://${EUREKA_SERVER}:8761
